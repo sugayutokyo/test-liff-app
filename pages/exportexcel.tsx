@@ -1,7 +1,13 @@
 import React from 'react';
+import type { Liff } from "@line/liff";
+import type { NextPage } from "next";
 const ExcelJS = require('exceljs');
 
-const exportexcel = () => {
+const exportexcel: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
+  liff,
+  liffError
+}) => {
+  const [createdUrl, setCreatedUrl] = React.useState('');
   const exportExcelTest = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     // Workbookの作成
@@ -26,16 +32,24 @@ const exportexcel = () => {
     // Blob
     const blob = new Blob([uint8Array], {type: 'application/octet-binary'});
     const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `sample.xlsx`;
-    a.click();
-    // ダウンロード後は不要なのでaタグを除去
-    a.remove()
+    setCreatedUrl(url);
+    // const a = document.createElement('a');
+    // a.href = url;
+    // a.download = `sample.xlsx`;
+    // a.click();
+    // // ダウンロード後は不要なのでaタグを除去
+    // a.remove()
+    if (liff) {
+      liff.openWindow({
+        url: url,
+        external: true,
+      });
+    }
   } 
   return (
     <div>
       <button onClick={(e) => exportExcelTest(e)}>excel 出力</button>
+      {createdUrl && <div>{createdUrl}</div>}
     </div>
   )
 }
