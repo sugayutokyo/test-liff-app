@@ -2,7 +2,8 @@ import React from 'react';
 const ExcelJS = require('exceljs');
 
 const exportexcel = () => {
-  const exportExcelTest = async () => {
+  const exportExcelTest = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     // Workbookの作成
     const workbook = new ExcelJS.Workbook();
     // Workbookに新しいWorksheetを追加
@@ -34,7 +35,7 @@ const exportexcel = () => {
   } 
   return (
     <div>
-      <button onClick={exportExcelTest}>excel 出力</button>
+      <button onClick={(e) => exportExcelTest(e)}>excel 出力</button>
     </div>
   )
 }
