@@ -3,7 +3,11 @@ import type { AppProps } from "next/app";
 import type { Liff } from "@line/liff";
 import { useState, useEffect } from "react";
 
-function MyApp({ Component, pageProps }: AppProps) {
+type PageProps = {
+  liff: Liff | null;
+  liffError: string | null;
+}
+function MyApp({ Component, pageProps }: AppProps<PageProps>) {
   const [liffObject, setLiffObject] = useState<Liff | null>(null);
   const [liffError, setLiffError] = useState<string | null>(null);
 
