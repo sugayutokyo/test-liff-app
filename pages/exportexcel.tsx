@@ -51,6 +51,7 @@ const exportexcel: NextPage<{ liff: Liff | null; liffError: string | null }> = (
       <button onClick={(e) => exportExcelTest(e)}>excel 出力</button>
       {createdUrl && <div>{createdUrl}</div>}
       {liff && <div>Liff ok</div>}
+      {liffError && <div>Liff Error</div>}
     </div>
   )
 }
