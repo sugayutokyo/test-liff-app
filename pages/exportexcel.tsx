@@ -41,7 +41,8 @@ const exportexcel: NextPage<{ liff: Liff | null; liffError: string | null }> = (
     // a.remove()
     if (liff) {
       liff.openWindow({
-        url: url,
+        // url: url,
+        url: 'https://www.google.co.jp/',
         external: true,
       });
     }
