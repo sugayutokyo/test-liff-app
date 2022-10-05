@@ -1,7 +1,9 @@
 import type { Liff } from "@line/liff";
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
+const ExcelJS = require('exceljs');
 
 const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
   liff,
@@ -33,6 +35,10 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
         >
           LIFF Documentation
         </a>
+        <br/>
+        <Link href={`/exportexcel`} passHref>
+          <a>excel出力ページに移動</a>
+        </Link>
       </main>
     </div>
   );
