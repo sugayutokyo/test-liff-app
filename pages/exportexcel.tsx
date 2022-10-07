@@ -48,7 +48,7 @@ const exportexcel: NextPage<{ liff: Liff | null; liffError: string | null }> = (
 
     worksheet.getCell('C4', 'C6').border = {
       top: {style:'thin'},
-      left: {style:'thin'},
+      left: {style:'dotted'},
       bottom: {style:'thin'},
       right: {style:'thin'}
     };
