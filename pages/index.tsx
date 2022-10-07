@@ -6,6 +6,7 @@ import styles from "../styles/Home.module.css";
 const ExcelJS = require('exceljs');
 import { Modal, Button, Group } from '@mantine/core';
 import { useState } from "react";
+import SignatureCanvas from 'react-signature-canvas';
 
 const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
   liff,
@@ -26,7 +27,12 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
         opened={opened}
         onClose={() => setOpened(false)}
       >
-        <div>test modal</div>
+        <div className={styles.canavs}>
+          <SignatureCanvas
+            penColor='green'
+            canvasProps={{ width: 500, height: 500 }}
+          />
+        </div>
       </Modal>
 
       <main className={styles.main}>
