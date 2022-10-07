@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import type { Liff } from "@line/liff";
 import { useState, useEffect } from "react";
+import { MantineProvider } from '@mantine/core';
 
 type PageProps = {
   liff: Liff | null;
@@ -35,7 +36,15 @@ function MyApp({ Component, pageProps }: AppProps<PageProps>) {
   // to page component as property
   pageProps.liff = liffObject;
   pageProps.liffError = liffError;
-  return <Component {...pageProps} />;
+  return <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{
+        colorScheme: 'light',
+      }}
+    >
+      <Component {...pageProps} />
+    </MantineProvider>;
 }
 
 export default MyApp;
