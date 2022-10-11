@@ -30,8 +30,8 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
       const a = document.createElement('a')
       a.download = 'Image.png';
       console.log(1234, dataUrl);
-      // a.href = dataUrl;
-      // a.click();
+      a.href = dataUrl;
+      a.click();
     });
   }
   return (
@@ -54,9 +54,7 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
             canvasProps={{ width: 350, height: 216.32}}
           />
         </div>
-        <div className="save-button">
-          <button onClick={saveImage}>Save</button>
-        </div>
+        <button className={styles.save_button} onClick={saveImage}>Save</button>
       </Modal>
 
       <main className={styles.main}>
