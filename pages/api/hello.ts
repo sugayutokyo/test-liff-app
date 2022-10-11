@@ -13,9 +13,9 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  console.log("🚀 ~ file: hello.ts ~ line 16 ~ req", req)
+  const mongouri = process.env.NEXT_PUBLIC_MONGO_STRING
   {/* @ts-ignore */} // 一旦ts無視
-  MongoClient.connect('mongodb://localhost:27017', (err, client) => {
+  MongoClient.connect(mongouri, (err, client) => {
     assert.equal(null, err)
     console.log("Connected successfully to server")
     const db = client.db('upbond')
