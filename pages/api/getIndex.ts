@@ -12,17 +12,20 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  let result: never[] = [];
-
+  let result = [];
+  
+  {/* @ts-ignore */} // 一旦ts無視
   MongoClient.connect('mongodb://localhost:27017/upbond', async (err, client) => {
     assert.equal(null, err)
     console.log("Connected successfully to server")
     const db = client.db('upbond')
     result = await getDocuments(db)
+    {/* @ts-ignore */} // 一旦ts無視
     res.status(200).json({resultArray: result})
   })
 }
 
+{/* @ts-ignore */} // 一旦ts無視
 const getDocuments = async (db) => {
   const test = await db.collection("tobishima-test").find().toArray();
   console.log("🚀 ~ file: hello.ts ~ line 16 ~ getDocuments ~ test", test)

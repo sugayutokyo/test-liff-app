@@ -14,6 +14,7 @@ export default function handler(
   res: NextApiResponse<Data>
 ) {
   console.log("🚀 ~ file: hello.ts ~ line 16 ~ req", req)
+  {/* @ts-ignore */} // 一旦ts無視
   MongoClient.connect('mongodb://localhost:27017', (err, client) => {
     assert.equal(null, err)
     console.log("Connected successfully to server")
@@ -24,8 +25,10 @@ export default function handler(
   res.status(200).json({ name: 'John Doe' })
 }
 
+{/* @ts-ignore */} // 一旦ts無視
 const insertDocuments = (db, imgsrc) => {
   const document = { id: Math.floor(Math.random() * 1000), img_src: imgsrc };
+  {/* @ts-ignore */} // 一旦ts無視
   db.collection('tobishima-test').insertMany([document], (err, result) => {
       console.log("🚀 ~ file: hello.ts ~ line 34 ~ db.collection ~ result", result)
       console.log("Inserted 3 documents into the collection")
