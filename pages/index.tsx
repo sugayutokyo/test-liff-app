@@ -5,7 +5,7 @@ import Link from "next/link";
 import styles from "../styles/Home.module.css";
 const ExcelJS = require('exceljs');
 import { Modal, Button, Group } from '@mantine/core';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SignatureCanvas from 'react-signature-canvas';
 import * as htmlToImage from 'html-to-image';
 
@@ -14,25 +14,38 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
   liffError
 }) => {
   const [opened, setOpened] = useState(false);
-  const saveImage = () => {
+  const [createdUrl, setCreatedUrl] = useState('');
+  const [index, setIndex] = useState(new Array());
+  
+  const getIndex = async () => {
+    const response = await fetch("/api/getIndex");
+    const data = await response.json();
+    console.log("🚀 ~ file: index.tsx ~ line 23 ~ getIndex ~ data", data)
+    setIndex(data.resultArray)
+  }
+
+  const saveImage = async () => {
     const tttt = document.getElementById('test-image-canvas') as HTMLCanvasElement;
-    // htmlToImage.toSvg(tttt).then(function (dataUrl) {
-    //   // 成功時に実行したい処理を記述する
-    //   // 私の場合はダウンロード処理を実行
-    //   const a = document.createElement('a')
-    //   a.download = 'Image.svg';
-    //   a.href = dataUrl;
-    //   a.click();
-    // });
-    htmlToImage.toPng(tttt).then(function (dataUrl) {
+    htmlToImage.toPng(tttt).then(async function (dataUrl) {
       // 成功時に実行したい処理を記述する
       // 私の場合はダウンロード処理を実行
       const a = document.createElement('a')
       a.download = 'Image.png';
       console.log(1234, dataUrl);
-      a.href = dataUrl;
-      a.click();
+      // a.href = dataUrl;
+      // a.click();
+      setCreatedUrl(dataUrl);
+      const response = await fetch("/api/hello", {
+        method: "POST",
+        body: JSON.stringify({
+          imgSrc: dataUrl
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     });
+    setOpened(false);
   }
   return (
     <div>
@@ -79,6 +92,30 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
         <Link href={`/exportexcel`} passHref>
           <a>excel出力ページに移動</a>
         </Link>
+        <br/>
+        <button onClick={getIndex}>一覧を取得する</button>
+        {index.length > 0 && (
+          <>
+            <table border={1} className={styles.table_contents}>
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>image</th>
+                </tr>
+              </thead>
+              <tbody>
+                {index.map((i, indexForkey) => (
+                  <tr key={indexForkey}>
+                    <td>{i.id}</td>
+                    <td>
+                      <img src={i.img_src} alt="img" width={150} height={100} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
       </main>
     </div>
   );
