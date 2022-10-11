@@ -16,13 +16,22 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
   const [opened, setOpened] = useState(false);
   const saveImage = () => {
     const tttt = document.getElementById('test-image-canvas') as HTMLCanvasElement;
-    htmlToImage.toSvg(tttt).then(function (dataUrl) {
+    // htmlToImage.toSvg(tttt).then(function (dataUrl) {
+    //   // 成功時に実行したい処理を記述する
+    //   // 私の場合はダウンロード処理を実行
+    //   const a = document.createElement('a')
+    //   a.download = 'Image.svg';
+    //   a.href = dataUrl;
+    //   a.click();
+    // });
+    htmlToImage.toPng(tttt).then(function (dataUrl) {
       // 成功時に実行したい処理を記述する
       // 私の場合はダウンロード処理を実行
       const a = document.createElement('a')
-      a.download = 'Image.svg';
-      a.href = dataUrl;
-      a.click();
+      a.download = 'Image.png';
+      console.log(1234, dataUrl);
+      // a.href = dataUrl;
+      // a.click();
     });
   }
   return (
@@ -42,7 +51,7 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
         <div className={styles.canavs} id="test-image-canvas">
           <SignatureCanvas
             penColor='green'
-            canvasProps={{ width: 400, height: 300 }}
+            canvasProps={{ width: 350, height: 216.32}}
           />
         </div>
         <div className="save-button">
