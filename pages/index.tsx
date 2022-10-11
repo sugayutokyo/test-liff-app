@@ -16,6 +16,7 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
   const [opened, setOpened] = useState(false);
   const [createdUrl, setCreatedUrl] = useState('');
   const [index, setIndex] = useState(new Array());
+  const [successMessage, setSuccessMessage] = useState('');
   
   const getIndex = async () => {
     const response = await fetch("/api/getIndex");
@@ -46,6 +47,7 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
       });
     });
     setOpened(false);
+    setSuccessMessage('画像を送信しました');
   }
   return (
     <div>
@@ -59,7 +61,7 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
       </Group>
       <Modal
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={() => {setOpened(false);setSuccessMessage('')}}
       >
         <div className={styles.canavs} id="test-image-canvas">
           <SignatureCanvas
@@ -89,6 +91,9 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
           LIFF Documentation
         </a>
         <br/>
+        {successMessage && (
+          <p>{successMessage}</p>
+        )}
         <Link href={`/exportexcel`} passHref>
           <a>excel出力ページに移動</a>
         </Link>
