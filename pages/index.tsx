@@ -94,6 +94,9 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
         {successMessage && (
           <p>{successMessage}</p>
         )}
+        {createdUrl && (
+          <p>{createdUrl}</p>
+        )}
         <Link href={`/exportexcel`} passHref>
           <a>excel出力ページに移動</a>
         </Link>
