@@ -5,16 +5,19 @@ import Link from "next/link";
 import styles from "../styles/Home.module.css";
 const ExcelJS = require('exceljs');
 import { Modal, Button, Group } from '@mantine/core';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SignatureCanvas from 'react-signature-canvas';
 import * as htmlToImage from 'html-to-image';
+import ReactSignatureCanvas from "react-signature-canvas";
+import pointGroupArray from "react-signature-canvas";
 
 const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
   liff,
   liffError
 }) => {
   const [opened, setOpened] = useState(false);
-  const [createdUrl, setCreatedUrl] = useState('');
+  const canvasRef = useRef<ReactSignatureCanvas | null>();
+  const [imageUrl, setImageUrl] = useState('');
   const [index, setIndex] = useState(new Array());
   const [successMessage, setSuccessMessage] = useState('');
   
@@ -26,26 +29,37 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
   }
 
   const saveImage = async () => {
-    const tttt = document.getElementById('test-image-canvas') as HTMLCanvasElement;
-    htmlToImage.toPng(tttt).then(async function (dataUrl) {
-      // 成功時に実行したい処理を記述する
-      // 私の場合はダウンロード処理を実行
-      const a = document.createElement('a')
-      a.download = 'Image.png';
-      console.log(1234, dataUrl);
-      // a.href = dataUrl;
-      // a.click();
-      setCreatedUrl(dataUrl);
-      const response = await fetch("/api/hello", {
-        method: "POST",
-        body: JSON.stringify({
-          imgSrc: dataUrl
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+    // const tttt = document.getElementById('test-image-canvas') as HTMLCanvasElement;
+    // htmlToImageはios safariで動かなかったため使用しない
+    // htmlToImage.toPng(tttt).then(async function (dataUrl) {
+    //   // 成功時に実行したい処理を記述する
+    //   // 私の場合はダウンロード処理を実行
+    //   const a = document.createElement('a')
+    //   a.download = 'Image.png';
+    //   console.log(1234, dataUrl);
+    //   // a.href = dataUrl;
+    //   // a.click();
+    //   setImageUrl(dataUrl);
+    //   const response = await fetch("/api/hello", {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       imgSrc: dataUrl
+    //     }),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    // });
+    const response = await fetch("/api/hello", {
+      method: "POST",
+      body: JSON.stringify({
+        imgSrc: imageUrl
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+    (canvasRef.current as pointGroupArray).clear();// キャンバスのクリア
     setOpened(false);
     setSuccessMessage('画像を送信しました');
   }
@@ -65,8 +79,15 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
       >
         <div className={styles.canavs} id="test-image-canvas">
           <SignatureCanvas
-            penColor='green'
+            ref={(ref) => {
+              canvasRef.current = ref;
+            }}
             canvasProps={{ width: 350, height: 216.32}}
+            penColor='black'
+            backgroundColor="white"
+            onEnd={() => {
+              setImageUrl((canvasRef.current as pointGroupArray).toDataURL());
+            }}
           />
         </div>
         <button className={styles.save_button} onClick={saveImage}>Save</button>
@@ -94,8 +115,8 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
         {successMessage && (
           <p>{successMessage}</p>
         )}
-        {createdUrl && (
-          <p>{createdUrl}</p>
+        {imageUrl && (
+          <p>{imageUrl}</p>
         )}
         <Link href={`/exportexcel`} passHref>
           <a>excel出力ページに移動</a>
