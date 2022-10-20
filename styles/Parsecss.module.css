@@ -1,0 +1,31 @@
+.contents {
+  margin: 0 auto;
+  width: 300px;
+  height: 300px;
+}
+
+.maeBackground {
+  z-index: 100;
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 0;
+}
+
+.selcetbox {
+  width: 200px;
+  margin: 8px auto;
+}
+
+.linear0 {
+  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%, rgba(234,236,240,0.9) 0%, rgba(234,236,240,0.9) 100%);
+}
+.linear20 {
+  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 20%, rgba(234,236,240,0.9) 20%, rgba(234,236,240,0.9) 100%);
+}
+.linear50 {
+  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(234,236,240,0.9) 50%, rgba(234,236,240,0.9) 100%);
+}
+.linear100 {
+  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 100%, rgba(234,236,240,0.9) 100%, rgba(234,236,240,0.9) 100%);
+}

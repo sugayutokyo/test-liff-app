@@ -122,6 +122,10 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
           <a>excel出力ページに移動</a>
         </Link>
         <br/>
+        <Link href={`/parsecss`} passHref>
+          <a>パース動的cssサンプルに移動</a>
+        </Link>
+        <br/>
         <button onClick={getIndex}>一覧を取得する</button>
         {index.length > 0 && (
           <>
