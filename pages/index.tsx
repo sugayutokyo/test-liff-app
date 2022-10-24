@@ -118,16 +118,16 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
           <p>{imageUrl}</p>
         )}
         <Link href={`/exportexcel`} passHref>
-          <button>excel出力ページに移動</button>
+          <button className={styles.button}>excel出力ページに移動</button>
         </Link>
         <br/>
         <Link href={`/parsecss`} passHref>
-          <button>パース動的cssサンプルに移動</button>
+          <button className={styles.button}>パース動的cssサンプルに移動</button>
         </Link>
         <br/>
-        <button onClick={getLocation}>位置情報を取得する</button>
+        <button onClick={getLocation} className={styles.button}>位置情報を取得する</button>
         <br/>
-        <button onClick={getIndex}>一覧を取得する</button>
+        <button onClick={getIndex} className={styles.button}>一覧を取得する</button>
         {index.length > 0 && (
           <>
             <table border={1} className={styles.table_contents}>
