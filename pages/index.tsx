@@ -28,6 +28,12 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
     setIndex(data.resultArray)
   }
 
+  const getLocation = async () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      alert("緯度:" + position.coords.latitude+",経度"+ position.coords.longitude);
+    });
+  }
+
   const saveImage = async () => {
     // const tttt = document.getElementById('test-image-canvas') as HTMLCanvasElement;
     // htmlToImageはios safariで動かなかったため使用しない
@@ -104,13 +110,6 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
             </p>
           </>
         )}
-        <a
-          href="https://developers.line.biz/ja/docs/liff/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          LIFF Documentation
-        </a>
         <br/>
         {successMessage && (
           <p>{successMessage}</p>
@@ -119,12 +118,14 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
           <p>{imageUrl}</p>
         )}
         <Link href={`/exportexcel`} passHref>
-          <a>excel出力ページに移動</a>
+          <button>excel出力ページに移動</button>
         </Link>
         <br/>
         <Link href={`/parsecss`} passHref>
-          <a>パース動的cssサンプルに移動</a>
+          <button>パース動的cssサンプルに移動</button>
         </Link>
+        <br/>
+        <button onClick={getLocation}>位置情報を取得する</button>
         <br/>
         <button onClick={getIndex}>一覧を取得する</button>
         {index.length > 0 && (
