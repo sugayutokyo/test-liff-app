@@ -148,8 +148,8 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
         <button onClick={getLocation} className={styles.button}>位置情報を取得する</button>
         <br/>
         <button onClick={getIndex} className={styles.button}>一覧を取得する</button>
-
-        <a href="">友達を追加する</a>
+        <br/>
+        <a className={styles.button} href="https://line.me/ti/p/5A9GSJ5z9D">友達を追加する</a>
         <br/>
         {index.length > 0 && (
           <>
