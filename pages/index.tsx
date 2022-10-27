@@ -151,6 +151,8 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
         <br/>
         <a className={styles.button} href="https://line.me/ti/p/5A9GSJ5z9D">監督(佐藤さん)をLINEに追加する</a>
         <br/>
+        <a className={styles.button} href="https://line.me/ti/g/yG2w5bkeW5">グループラインに参加する</a>
+        <br/>
         {index.length > 0 && (
           <>
             <table border={1} className={styles.table_contents}>
