@@ -10,6 +10,7 @@ import SignatureCanvas from 'react-signature-canvas';
 import * as htmlToImage from 'html-to-image';
 import ReactSignatureCanvas from "react-signature-canvas";
 import pointGroupArray from "react-signature-canvas";
+import UseSWRTest from "../components/UseSWRTest";
 
 const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
   liff,
@@ -149,6 +150,7 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
         <br/>
         <button onClick={getIndex} className={styles.button}>一覧を取得する</button>
         <br/>
+        <UseSWRTest />
         <a className={styles.button} href="https://line.me/ti/p/5A9GSJ5z9D">監督(佐藤さん)をLINEに追加する</a>
         <br/>
         <a className={styles.button} href="https://line.me/ti/g/yG2w5bkeW5">グループラインに参加する</a>
