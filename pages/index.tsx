@@ -60,7 +60,8 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
       'type': 'text',
       'text': 'Hello, World! from SHare Target Picker App...'
     }]).then(() => {
-      alert('sharetargetpicker test');
+
+      alert(liff);
     });
   }
 
