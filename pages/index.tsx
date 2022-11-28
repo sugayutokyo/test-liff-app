@@ -59,7 +59,9 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
     liff?.shareTargetPicker([{
       'type': 'text',
       'text': 'Hello, World! from SHare Target Picker App...'
-     }]);
+    }]).then(() => {
+      alert('sharetargetpicker test');
+    });
   }
 
   const saveImage = async () => {
