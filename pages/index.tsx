@@ -60,7 +60,12 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
       'type': 'text',
       'text': 'Hello, World! from SHare Target Picker App...'
     }]).then(() => {
-      alert(liff.id);
+      liff
+      .getProfile()
+      .then((profile) => {
+        const id = profile.userId;
+        alert(id);
+      })
     });
   }
 
