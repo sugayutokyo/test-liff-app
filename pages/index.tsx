@@ -64,7 +64,8 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
       .getProfile()
       .then((profile) => {
         const id = profile.userId;
-        alert(id);
+        const name = profile.displayName;
+        alert(`${id} ${name}`);
       })
     });
   }
