@@ -55,6 +55,13 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
     );
   }
 
+  const shareTargetPicker = () => {
+    liff?.shareTargetPicker([{
+      'type': 'text',
+      'text': 'Hello, World! from SHare Target Picker App...'
+     }]);
+  }
+
   const saveImage = async () => {
     // const tttt = document.getElementById('test-image-canvas') as HTMLCanvasElement;
     // htmlToImageはios safariで動かなかったため使用しない
@@ -149,6 +156,8 @@ const Home: NextPage<{ liff: Liff | null; liffError: string | null }> = ({
         <button onClick={getLocation} className={styles.button}>位置情報を取得する</button>
         <br/>
         <button onClick={getIndex} className={styles.button}>一覧を取得する</button>
+        <br/>
+        <button onClick={shareTargetPicker} className={styles.button}>shareTargetPicker</button>
         <br/>
         <UseSWRTest />
         <a className={styles.button} href="https://line.me/ti/p/5A9GSJ5z9D">監督(佐藤さん)をLINEに追加する</a>
